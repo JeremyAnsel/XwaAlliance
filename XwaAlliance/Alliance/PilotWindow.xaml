@@ -1,0 +1,60 @@
+﻿<Window x:Class="Alliance.PilotWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Alliance"
+        mc:Ignorable="d"
+        Title="Load Player"
+        Height="550" Width="300"
+        BorderThickness="0"
+        Background="LightGray"
+        ResizeMode="NoResize"
+        WindowStyle="ToolWindow"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+    <DockPanel>
+        <Image DockPanel.Dock="Top" Source="Alliance.jpg" />
+        <GroupBox DockPanel.Dock="Top" Height="100" Header="Player Name" FontWeight="Bold">
+            <ListBox x:Name="playerList" SelectionMode="Single" FontWeight="Bold" Background="#F0F0F0" />
+        </GroupBox>
+        <UniformGrid Columns="1">
+            <Button x:Name="loadPlayerButton" Margin="5" Content="Load Player" FontWeight="Bold" Click="LoadPlayerButton_Click">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="UIElement.PreviewMouseDown">
+                        <EventTrigger.Actions>
+                            <SoundPlayerAction Source="SoundClick.wav" />
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button x:Name="deletePlayerButton" Margin="5" Content="Delete Player" FontWeight="Bold" Click="DeletePlayerButton_Click">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="UIElement.PreviewMouseDown">
+                        <EventTrigger.Actions>
+                            <SoundPlayerAction Source="SoundClick.wav" />
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button x:Name="createPlayerButton" Margin="5" Content="Create New Player" FontWeight="Bold" Click="CreatePlayerButton_Click">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="UIElement.PreviewMouseDown">
+                        <EventTrigger.Actions>
+                            <SoundPlayerAction Source="SoundClick.wav" />
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button x:Name="doneButton" Margin="5" Content="Done" FontWeight="Bold" Click="DoneButton_Click">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="UIElement.PreviewMouseDown">
+                        <EventTrigger.Actions>
+                            <SoundPlayerAction Source="SoundClick.wav" />
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+        </UniformGrid>
+    </DockPanel>
+</Window>

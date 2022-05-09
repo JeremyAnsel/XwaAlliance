@@ -1,0 +1,2 @@
+Babu Frik's Configurator|BabuFriksConfigurator.exe|true
+Palpatine Total Converter|PalpatineTotalConverter.exe|true
