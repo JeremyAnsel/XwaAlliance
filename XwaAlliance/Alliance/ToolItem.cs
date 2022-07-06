@@ -8,17 +8,64 @@ namespace Alliance
 {
     public sealed class ToolItem
     {
-        public ToolItem(string name, string path, bool closeWindow)
+        public ToolItem(string menuPath, string name, string path, bool closeWindow)
         {
-            this.Name = name;
-            this.Path = path;
+            this.MenuPath = string.IsNullOrEmpty(menuPath) ? string.Empty : menuPath;
+            this.Name = string.IsNullOrEmpty(name) ? string.Empty : name;
+            this.Path = string.IsNullOrEmpty(path) ? string.Empty : path;
             this.CloseWindow = closeWindow;
         }
+
+        public string MenuPath { get; }
 
         public string Name { get; }
 
         public string Path { get; }
 
         public bool CloseWindow { get; }
+
+        public bool IsMenu
+        {
+            get
+            {
+                return string.IsNullOrEmpty(Path);
+            }
+        }
+
+        public bool IsPathDirectory
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Path))
+                {
+                    return false;
+                }
+
+                return Path.Equals(".", StringComparison.OrdinalIgnoreCase) || Path[Path.Length - 1] == '\\';
+            }
+        }
+
+        public bool PathExists
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Path))
+                {
+                    return true;
+                }
+
+                if (IsPathDirectory)
+                {
+                    return System.IO.Directory.Exists(Path);
+                }
+
+                return System.IO.File.Exists(Path);
+            }
+        }
+
+        public bool IsInMenu(string menu)
+        {
+            return MenuPath.Equals(menu, StringComparison.OrdinalIgnoreCase);
+        }
     }
 }

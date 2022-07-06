@@ -31,6 +31,8 @@ namespace Alliance
             Update();
         }
 
+        public ToolItemList ToolItemList { get; private set; }
+
         public List<ToolItem> ToolItems { get; } = new List<ToolItem>();
 
         public void Update()
@@ -41,63 +43,31 @@ namespace Alliance
 
         private void LoadToolItems()
         {
-            var items = new List<ToolItem>();
+            ToolItemList items;
 
             if (System.IO.File.Exists("AllianceTools.txt"))
             {
                 string[] lines = System.IO.File.ReadAllLines("AllianceTools.txt", _encoding);
-
-                for (int i = 0; i < lines.Length; i++)
-                {
-                    string line = lines[i];
-
-                    if (string.IsNullOrWhiteSpace(line))
-                    {
-                        continue;
-                    }
-
-                    if (line.StartsWith("#") || line.StartsWith(";") || line.StartsWith("//"))
-                    {
-                        continue;
-                    }
-
-                    string[] parts = line.Split('|');
-
-                    if (parts.Length < 3)
-                    {
-                        continue;
-                    }
-
-                    string name = parts[0].Trim();
-                    string path = parts[1].Trim();
-                    bool closeWindow;
-
-                    if (bool.TryParse(parts[2].Trim(), out bool result))
-                    {
-                        closeWindow = result;
-                    }
-                    else
-                    {
-                        closeWindow = false;
-                    }
-
-                    items.Add(new ToolItem(name, path, closeWindow));
-                }
+                items = ToolItemList.FromLines(lines);
             }
             else
             {
-                items.Add(new ToolItem("Babu Frik's Configurator", "BabuFriksConfigurator.exe", true));
-                items.Add(new ToolItem("Palpatine Total Converter", "PalpatineTotalConverter.exe", true));
+                items = new ToolItemList();
+
+                items.Items.Add(new ToolItem(string.Empty, "Babu Frik's Configurator", "BabuFriksConfigurator.exe", true));
+                items.Items.Add(new ToolItem(string.Empty, "Palpatine Total Converter", "PalpatineTotalConverter.exe", true));
             }
 
-            items.Add(new ToolItem("Joystick Configurator", "XwaJoystickConfig.exe", false));
+            items.Items.Add(new ToolItem(string.Empty, "Joystick Configurator", "XwaJoystickConfig.exe", false));
+
+            this.ToolItemList = items;
 
             this.ToolItems.Clear();
 
-            foreach (var item in items)
+            foreach (var item in items.GetMenuItems(string.Empty))
             {
 #if !DEBUG
-                if (System.IO.File.Exists(item.Path))
+                if (item.PathExists)
 #endif
                 {
                     this.ToolItems.Add(item);
@@ -146,12 +116,15 @@ namespace Alliance
 
         private void PilotButton_Click(object sender, RoutedEventArgs e)
         {
+            this.Hide();
+
             var window = new PilotWindow
             {
                 Owner = this
             };
 
             window.ShowDialog();
+            this.Show();
         }
 
         private void JoyCplButton_Click(object sender, RoutedEventArgs e)
@@ -166,17 +139,26 @@ namespace Alliance
 
         private void ToolButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(sender is Button button))
+            if (sender is not Button button)
             {
                 return;
             }
 
-            if (!(button.Tag is ToolItem toolItem))
+            if (button.Tag is not ToolItem toolItem)
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(toolItem.Path) || !System.IO.File.Exists(toolItem.Path))
+            if (toolItem.IsMenu)
+            {
+                this.Hide();
+                var dialog = new ToolsWindow(this, this.ToolItemList, toolItem.Name, toolItem.Name);
+                dialog.ShowDialog();
+                this.Show();
+                return;
+            }
+
+            if (!toolItem.PathExists)
             {
                 return;
             }
