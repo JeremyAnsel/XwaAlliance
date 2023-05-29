@@ -154,7 +154,16 @@ namespace Alliance
                 this.Hide();
                 var dialog = new ToolsWindow(this, this.ToolItemList, toolItem.Name, toolItem.Name);
                 dialog.ShowDialog();
-                this.Show();
+
+                if (toolItem.CloseWindow)
+                {
+                    this.Close();
+                }
+                else
+                {
+                    this.Show();
+                }
+
                 return;
             }
 
