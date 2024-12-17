@@ -23,7 +23,7 @@
                 <Button.Triggers>
                     <EventTrigger RoutedEvent="UIElement.PreviewMouseDown">
                         <EventTrigger.Actions>
-                            <SoundPlayerAction Source="SoundClick.wav" />
+                            <SoundPlayerAction Source="pack://application:,,,/SoundClick.wav" />
                         </EventTrigger.Actions>
                     </EventTrigger>
                 </Button.Triggers>
@@ -32,7 +32,7 @@
                 <Button.Triggers>
                     <EventTrigger RoutedEvent="UIElement.PreviewMouseDown">
                         <EventTrigger.Actions>
-                            <SoundPlayerAction Source="SoundClick.wav" />
+                            <SoundPlayerAction Source="pack://application:,,,/SoundClick.wav" />
                         </EventTrigger.Actions>
                     </EventTrigger>
                 </Button.Triggers>
@@ -41,7 +41,7 @@
                 <Button.Triggers>
                     <EventTrigger RoutedEvent="UIElement.PreviewMouseDown">
                         <EventTrigger.Actions>
-                            <SoundPlayerAction Source="SoundClick.wav" />
+                            <SoundPlayerAction Source="pack://application:,,,/SoundClick.wav" />
                         </EventTrigger.Actions>
                     </EventTrigger>
                 </Button.Triggers>
@@ -50,7 +50,7 @@
                 <Button.Triggers>
                     <EventTrigger RoutedEvent="UIElement.PreviewMouseDown">
                         <EventTrigger.Actions>
-                            <SoundPlayerAction Source="SoundClick.wav" />
+                            <SoundPlayerAction Source="pack://application:,,,/SoundClick.wav" />
                         </EventTrigger.Actions>
                     </EventTrigger>
                 </Button.Triggers>

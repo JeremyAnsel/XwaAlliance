@@ -27,6 +27,7 @@ namespace Alliance
         public MainWindow()
         {
             InitializeComponent();
+            SetTopImageHeight();
             LoadToolItems();
             Update();
         }
@@ -39,6 +40,19 @@ namespace Alliance
         {
             this.DataContext = null;
             this.DataContext = this;
+        }
+
+        private void SetTopImageHeight()
+        {
+            if (System.IO.File.Exists("Alliance.jpg"))
+            {
+                this.topImage.Height = 285;
+            }
+            else
+            {
+                this.topImage.Height = 0;
+                this.Height -= 285;
+            }
         }
 
         private void LoadToolItems()
