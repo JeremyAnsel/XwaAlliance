@@ -70,7 +70,7 @@ namespace Alliance
 
             if (toolItem.IsMenu)
             {
-                this.Hide();
+                //this.Hide();
                 var dialog = new ToolsWindow(this, this.ToolItemList, toolItem.Name, toolItem.MenuPath + "\\" + toolItem.Name);
                 dialog.ShowDialog();
 
