@@ -35,34 +35,66 @@ namespace Alliance
 
                 string[] parts = line.Split('|');
 
-                if (parts.Length < 3)
+                string menuPath;
+                string name;
+                string path;
+                string pathArguments;
+                bool closeWindow;
+
+                if (parts.Length == 3)
+                {
+                    menuPath = string.Empty;
+                    name = parts[0].Trim();
+
+                    int nameIndex = name.IndexOf('\\');
+                    if (nameIndex != -1)
+                    {
+                        menuPath = name.Substring(0, nameIndex);
+                        name = name.Substring(nameIndex + 1);
+                    }
+
+                    path = parts[1].Trim();
+                    pathArguments = string.Empty;
+
+                    if (bool.TryParse(parts[2].Trim(), out bool result))
+                    {
+                        closeWindow = result;
+                    }
+                    else
+                    {
+                        closeWindow = false;
+                    }
+                }
+                else if (parts.Length == 4)
+                {
+                    menuPath = string.Empty;
+                    name = parts[0].Trim();
+
+                    int nameIndex = name.IndexOf('\\');
+                    if (nameIndex != -1)
+                    {
+                        menuPath = name.Substring(0, nameIndex);
+                        name = name.Substring(nameIndex + 1);
+                    }
+
+                    path = parts[1].Trim();
+                    pathArguments = parts[2].Trim();
+
+                    if (bool.TryParse(parts[3].Trim(), out bool result))
+                    {
+                        closeWindow = result;
+                    }
+                    else
+                    {
+                        closeWindow = false;
+                    }
+                }
+                else
                 {
                     continue;
                 }
 
-                string menuPath = string.Empty;
-                string name = parts[0].Trim();
-
-                int nameIndex = name.IndexOf('\\');
-                if (nameIndex != -1)
-                {
-                    menuPath = name.Substring(0, nameIndex);
-                    name = name.Substring(nameIndex + 1);
-                }
-
-                string path = parts[1].Trim();
-                bool closeWindow;
-
-                if (bool.TryParse(parts[2].Trim(), out bool result))
-                {
-                    closeWindow = result;
-                }
-                else
-                {
-                    closeWindow = false;
-                }
-
-                list.Items.Add(new ToolItem(menuPath, name, path, closeWindow));
+                list.Items.Add(new ToolItem(menuPath, name, path, pathArguments, closeWindow));
             }
 
             return list;

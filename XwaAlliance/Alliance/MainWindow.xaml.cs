@@ -68,11 +68,11 @@ namespace Alliance
             {
                 items = new ToolItemList();
 
-                items.Items.Add(new ToolItem(string.Empty, "Babu Frik's Configurator", "BabuFriksConfigurator.exe", true));
-                items.Items.Add(new ToolItem(string.Empty, "Palpatine Total Converter", "PalpatineTotalConverter.exe", true));
+                items.Items.Add(new ToolItem(string.Empty, "Babu Frik's Configurator", "BabuFriksConfigurator.exe", string.Empty, true));
+                items.Items.Add(new ToolItem(string.Empty, "Palpatine Total Converter", "PalpatineTotalConverter.exe", string.Empty, true));
             }
 
-            items.Items.Add(new ToolItem(string.Empty, "Joystick Configurator", "XwaJoystickConfig.exe", false));
+            items.Items.Add(new ToolItem(string.Empty, "Joystick Configurator", "XwaJoystickConfig.exe", string.Empty, false));
 
             this.ToolItemList = items;
 
@@ -186,7 +186,7 @@ namespace Alliance
                 return;
             }
 
-            Process.Start(toolItem.Path);
+            Process.Start(toolItem.Path, toolItem.PathArguments);
 
             if (toolItem.CloseWindow)
             {

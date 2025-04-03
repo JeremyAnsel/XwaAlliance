@@ -91,7 +91,7 @@ namespace Alliance
                 return;
             }
 
-            Process.Start(toolItem.Path);
+            Process.Start(toolItem.Path, toolItem.PathArguments);
 
             if (toolItem.CloseWindow)
             {

@@ -8,11 +8,12 @@ namespace Alliance
 {
     public sealed class ToolItem
     {
-        public ToolItem(string menuPath, string name, string path, bool closeWindow)
+        public ToolItem(string menuPath, string name, string path, string pathArguments, bool closeWindow)
         {
             this.MenuPath = string.IsNullOrEmpty(menuPath) ? string.Empty : menuPath;
             this.Name = string.IsNullOrEmpty(name) ? string.Empty : name;
             this.Path = string.IsNullOrEmpty(path) ? string.Empty : path;
+            this.PathArguments = string.IsNullOrEmpty(pathArguments) ? string.Empty : pathArguments;
             this.CloseWindow = closeWindow;
         }
 
@@ -21,6 +22,8 @@ namespace Alliance
         public string Name { get; }
 
         public string Path { get; }
+
+        public string PathArguments { get; }
 
         public bool CloseWindow { get; }
 
