@@ -106,6 +106,8 @@ namespace Alliance
         {
             this.Hide();
 
+            RunXwaSideProcesses();
+
             var process = new Process();
             process.StartInfo.FileName = fileName;
             process.StartInfo.Arguments = arguments;
@@ -116,6 +118,21 @@ namespace Alliance
 
             Thread.Sleep(1000);
             this.Close();
+        }
+
+        private void RunXwaSideProcesses()
+        {
+            foreach (string sideProcess in System.IO.Directory.EnumerateFiles(".", "*Player.exe"))
+            {
+                var process = new Process();
+                process.StartInfo.FileName = sideProcess;
+                process.StartInfo.Arguments = string.Empty;
+                process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.EnvironmentVariables["SHIM_MCCOMPAT"] = "0x800000001";
+                process.Start();
+                process.WaitForInputIdle(10000);
+            }
         }
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)
