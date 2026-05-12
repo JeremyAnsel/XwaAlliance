@@ -74,20 +74,23 @@
                     </EventTrigger>
                 </Button.Triggers>
             </Button>
-            <Menu x:Name="advancedMenu" Margin="5" Height="{StaticResource ButtonHeight}" FontSize="{StaticResource ButtonFontSize}" FontWeight="Bold" HorizontalAlignment="Center">
-                <Menu.Triggers>
-                    <EventTrigger RoutedEvent="UIElement.PreviewMouseDown">
-                        <EventTrigger.Actions>
-                            <SoundPlayerAction Source="pack://application:,,,/SoundClick.wav" />
-                        </EventTrigger.Actions>
-                    </EventTrigger>
-                </Menu.Triggers>
-                <MenuItem Height="{StaticResource ButtonHeight}" FontSize="{StaticResource ButtonFontSize}" Header="Advanced Options">
-                    <MenuItem x:Name="openXwaDirectoryMenu" Height="{StaticResource ButtonHeight}" FontSize="{StaticResource ButtonFontSize}" Header="Open XWA Directory" Click="OpenXwaDirectoryMenu_Click" />
-                    <MenuItem x:Name="runCommandLineMenu" Height="{StaticResource ButtonHeight}" FontSize="{StaticResource ButtonFontSize}" Header="Run XWA with Command Line" Click="RunCommandLineMenu_Click" />
-                    <MenuItem x:Name="procdumpMenu" Height="{StaticResource ButtonHeight}" FontSize="{StaticResource ButtonFontSize}" Header="Run XWA with Procdump" Click="RunProcdumpMenu_Click" />
-                </MenuItem>
-            </Menu>
+            <DockPanel>
+                <CheckBox x:Name="keepOpenedButton" DockPanel.Dock="Left" Margin="5" Height="{StaticResource ButtonHeight}" FontSize="{StaticResource ButtonFontSize}" FontWeight="Bold" Content="Keep opened" IsChecked="False" />
+                <Menu x:Name="advancedMenu" Margin="5" Height="{StaticResource ButtonHeight}" FontSize="{StaticResource ButtonFontSize}" FontWeight="Bold" HorizontalAlignment="Center">
+                    <Menu.Triggers>
+                        <EventTrigger RoutedEvent="UIElement.PreviewMouseDown">
+                            <EventTrigger.Actions>
+                                <SoundPlayerAction Source="pack://application:,,,/SoundClick.wav" />
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Menu.Triggers>
+                    <MenuItem Height="{StaticResource ButtonHeight}" FontSize="{StaticResource ButtonFontSize}" Header="Advanced Options">
+                        <MenuItem x:Name="openXwaDirectoryMenu" Height="{StaticResource ButtonHeight}" FontSize="{StaticResource ButtonFontSize}" Header="Open XWA Directory" Click="OpenXwaDirectoryMenu_Click" />
+                        <MenuItem x:Name="runCommandLineMenu" Height="{StaticResource ButtonHeight}" FontSize="{StaticResource ButtonFontSize}" Header="Run XWA with Command Line" Click="RunCommandLineMenu_Click" />
+                        <MenuItem x:Name="procdumpMenu" Height="{StaticResource ButtonHeight}" FontSize="{StaticResource ButtonFontSize}" Header="Run XWA with Procdump" Click="RunProcdumpMenu_Click" />
+                    </MenuItem>
+                </Menu>
+            </DockPanel>
         </UniformGrid>
         <ItemsControl x:Name="toolItemsControl" ItemsSource="{Binding ToolItems}">
             <ItemsControl.ItemsPanel>

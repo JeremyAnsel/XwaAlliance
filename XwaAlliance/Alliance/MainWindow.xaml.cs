@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -104,7 +105,10 @@ namespace Alliance
 
         private void RunXwaProcess(string fileName, string arguments)
         {
-            this.Hide();
+            if (this.keepOpenedButton.IsChecked != true)
+            {
+                this.Hide();
+            }
 
             RunXwaSideProcesses();
 
@@ -117,7 +121,11 @@ namespace Alliance
             process.Start();
 
             Thread.Sleep(1000);
-            this.Close();
+
+            if (this.keepOpenedButton.IsChecked != true)
+            {
+                this.Close();
+            }
         }
 
         private void RunXwaSideProcesses()
@@ -132,8 +140,15 @@ namespace Alliance
                 process.StartInfo.EnvironmentVariables["SHIM_MCCOMPAT"] = "0x800000001";
                 process.Start();
                 process.WaitForInputIdle(10000);
+                SendMessage(process.MainWindowHandle, WM_SYSCOMMAND, SC_MINIMIZE, IntPtr.Zero);
             }
         }
+
+        [DllImport("user32.dll")]
+        private static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
+
+        private const int WM_SYSCOMMAND = 0x0112;
+        private const nint SC_MINIMIZE = 0xF020;
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
@@ -186,7 +201,7 @@ namespace Alliance
                 var dialog = new ToolsWindow(this, this.ToolItemList, toolItem.Name, toolItem.Name);
                 dialog.ShowDialog();
 
-                if (toolItem.CloseWindow)
+                if (toolItem.CloseWindow && this.keepOpenedButton.IsChecked != true)
                 {
                     this.Close();
                 }
@@ -208,7 +223,11 @@ namespace Alliance
             if (toolItem.CloseWindow)
             {
                 Thread.Sleep(1000);
-                this.Close();
+
+                if (this.keepOpenedButton.IsChecked != true)
+                {
+                    this.Close();
+                }
             }
         }
 
